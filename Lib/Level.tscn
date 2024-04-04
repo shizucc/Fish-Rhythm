@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2d7jaubod2iv"]
+
+[ext_resource type="Texture2D" uid="uid://yyq4pc2qfrs8" path="res://Assets/background.png" id="1_7iw7j"]
+[ext_resource type="Script" path="res://Lib/Level.gd" id="1_mcplw"]
+[ext_resource type="Texture2D" uid="uid://cfts22olu4k44" path="res://Assets/bar.png" id="2_2nw6k"]
+[ext_resource type="Texture2D" uid="uid://c6nnm7rf6fwp7" path="res://Assets/bar_perfect.png" id="3_0qtvv"]
+[ext_resource type="Script" path="res://Lib/Note/NoteSpawn.gd" id="4_mfq5e"]
+[ext_resource type="AudioStream" uid="uid://cfnwuvfpiyixi" path="res://Assets/Music/slow_music.mp3" id="5_jvbwe"]
+[ext_resource type="Script" path="res://Lib/Music/Conductor.gd" id="6_b2e7x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krkiq"]
+size = Vector2(184, 133)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7wlg5"]
+size = Vector2(20, 130)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_mcplw")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("1_7iw7j")
+stretch_mode = 2
+
+[node name="RhythmBar" type="Node2D" parent="."]
+position = Vector2(404, 136)
+
+[node name="Bar" type="Area2D" parent="RhythmBar"]
+
+[node name="Bar" type="TextureRect" parent="RhythmBar/Bar"]
+offset_right = 1133.0
+offset_bottom = 148.0
+texture = ExtResource("2_2nw6k")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BarPerfectArea" type="Area2D" parent="RhythmBar/Bar"]
+position = Vector2(125, -27)
+
+[node name="TextureRect" type="TextureRect" parent="RhythmBar/Bar/BarPerfectArea"]
+offset_right = 206.0
+offset_bottom = 206.0
+texture = ExtResource("3_0qtvv")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RhythmBar/Bar/BarPerfectArea"]
+position = Vector2(103, 101.5)
+shape = SubResource("RectangleShape2D_krkiq")
+
+[node name="NotesArea" type="Node2D" parent="RhythmBar/Bar"]
+
+[node name="NoteSpawn" type="Node" parent="RhythmBar/Bar/NotesArea"]
+script = ExtResource("4_mfq5e")
+
+[node name="NoteTimer" type="Timer" parent="RhythmBar/Bar/NotesArea/NoteSpawn"]
+wait_time = 2.0
+one_shot = true
+
+[node name="BarBorderEnd" type="CollisionShape2D" parent="RhythmBar/Bar"]
+position = Vector2(12, 75)
+shape = SubResource("RectangleShape2D_7wlg5")
+
+[node name="Conductor" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_jvbwe")
+script = ExtResource("6_b2e7x")
+
+[node name="StartTimer" type="Timer" parent="Conductor"]
+one_shot = true
+
+[connection signal="timeout" from="RhythmBar/Bar/NotesArea/NoteSpawn/NoteTimer" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_note_timer_timeout"]
+[connection signal="beat_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_beat_signal"]
+[connection signal="measure_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_measure_signal"]
+[connection signal="timeout" from="Conductor/StartTimer" to="Conductor" method="_on_start_timer_timeout"]

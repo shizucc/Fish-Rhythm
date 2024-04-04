@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://d266kht3k15h3"]
+
+[ext_resource type="Script" path="res://Lib/Note/Note.gd" id="1_2y3am"]
+[ext_resource type="Script" path="res://Lib/Note/NoteSymbol.gd" id="2_m20ro"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1by1l"]
+size = Vector2(132, 130)
+
+[node name="Note" type="CharacterBody2D"]
+script = ExtResource("1_2y3am")
+
+[node name="NoteSymbol" type="TextureRect" parent="."]
+offset_right = 131.0
+offset_bottom = 130.0
+expand_mode = 1
+script = ExtResource("2_m20ro")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(66, 65)
+shape = SubResource("RectangleShape2D_1by1l")
