@@ -9,9 +9,12 @@ var song_position_in_beats = 0
 var last_spawned_beat = 0
 
 var interval = 0
+var speed = 0
 
 var instance
 var note = load("res://Lib/Note/Note.tscn")
+
+signal interval_signal(interval)
 
 func _ready():
 	
@@ -27,9 +30,8 @@ func spawn_note():
 	note.global_position = Vector2(1500,145)
 
 func _on_conductor_measure_signal(position):
-	pass
-
-
+	if(position % interval == 0):
+		spawn_note()
 
 func _on_conductor_beat_signal(position):
 	song_position_in_beats = position
