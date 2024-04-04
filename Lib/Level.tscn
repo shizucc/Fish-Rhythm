@@ -51,6 +51,7 @@ position = Vector2(103, 101.5)
 shape = SubResource("RectangleShape2D_krkiq")
 
 [node name="NotesArea" type="Node2D" parent="RhythmBar/Bar"]
+position = Vector2(-405, -136)
 
 [node name="NoteSpawn" type="Node" parent="RhythmBar/Bar/NotesArea"]
 script = ExtResource("4_mfq5e")
@@ -58,10 +59,6 @@ script = ExtResource("4_mfq5e")
 [node name="Notes" type="Node2D" parent="RhythmBar/Bar/NotesArea/NoteSpawn"]
 position = Vector2(404, 136)
 script = ExtResource("6_i0ly7")
-
-[node name="NoteTimer" type="Timer" parent="RhythmBar/Bar/NotesArea/NoteSpawn"]
-wait_time = 2.0
-one_shot = true
 
 [node name="BarBorderEnd" type="CollisionShape2D" parent="RhythmBar/Bar"]
 position = Vector2(12, 75)
@@ -75,7 +72,6 @@ script = ExtResource("6_b2e7x")
 one_shot = true
 
 [connection signal="interval_signal" from="RhythmBar/Bar/NotesArea/NoteSpawn" to="RhythmBar/Bar/NotesArea/NoteSpawn/Notes" method="_on_note_spawn_interval_signal"]
-[connection signal="timeout" from="RhythmBar/Bar/NotesArea/NoteSpawn/NoteTimer" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_note_timer_timeout"]
 [connection signal="beat_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_beat_signal"]
 [connection signal="measure_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_measure_signal"]
 [connection signal="timeout" from="Conductor/StartTimer" to="Conductor" method="_on_start_timer_timeout"]
