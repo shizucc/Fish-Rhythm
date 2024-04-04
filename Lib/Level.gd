@@ -12,3 +12,15 @@ func _ready():
 func _process(delta):
 	pass
 
+
+
+func _on_perfect_area_area_entered(area):
+	print("perfect")
+
+
+func _on_great_area_area_entered(area):
+	print("great")
+
+
+func _on_good_area_area_entered(area):
+	print("good")

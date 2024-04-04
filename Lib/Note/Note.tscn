@@ -4,9 +4,9 @@
 [ext_resource type="Script" path="res://Lib/Note/NoteSymbol.gd" id="2_m20ro"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1by1l"]
-size = Vector2(132, 130)
+size = Vector2(1, 1)
 
-[node name="Note" type="CharacterBody2D"]
+[node name="Note" type="Area2D"]
 script = ExtResource("1_2y3am")
 
 [node name="NoteSymbol" type="TextureRect" parent="."]
@@ -15,6 +15,6 @@ offset_bottom = 130.0
 expand_mode = 1
 script = ExtResource("2_m20ro")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(66, 65)
+[node name="HitBox" type="CollisionShape2D" parent="."]
+position = Vector2(62.5, 63.5)
 shape = SubResource("RectangleShape2D_1by1l")

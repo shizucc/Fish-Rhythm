@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d2d7jaubod2iv"]
+[gd_scene load_steps=12 format=3 uid="uid://d2d7jaubod2iv"]
 
 [ext_resource type="Texture2D" uid="uid://yyq4pc2qfrs8" path="res://Assets/background.png" id="1_7iw7j"]
 [ext_resource type="Script" path="res://Lib/Level.gd" id="1_mcplw"]
@@ -7,10 +7,15 @@
 [ext_resource type="Script" path="res://Lib/Note/NoteSpawn.gd" id="4_mfq5e"]
 [ext_resource type="AudioStream" uid="uid://cfnwuvfpiyixi" path="res://Assets/Music/slow_music.mp3" id="5_jvbwe"]
 [ext_resource type="Script" path="res://Lib/Music/Conductor.gd" id="6_b2e7x"]
-[ext_resource type="Script" path="res://Lib/Note/Notes.gd" id="6_i0ly7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krkiq"]
-size = Vector2(184, 133)
+size = Vector2(53, 133)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hrqoy"]
+size = Vector2(29, 125.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m2kwa"]
+size = Vector2(33.625, 125)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7wlg5"]
 size = Vector2(20, 130)
@@ -36,29 +41,52 @@ texture = ExtResource("2_2nw6k")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="BarPerfectArea" type="Area2D" parent="RhythmBar/Bar"]
+[node name="BarHitArea" type="Node2D" parent="RhythmBar/Bar"]
 position = Vector2(125, -27)
 
-[node name="TextureRect" type="TextureRect" parent="RhythmBar/Bar/BarPerfectArea"]
+[node name="TextureRect" type="TextureRect" parent="RhythmBar/Bar/BarHitArea"]
 offset_right = 206.0
 offset_bottom = 206.0
 texture = ExtResource("3_0qtvv")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RhythmBar/Bar/BarPerfectArea"]
-position = Vector2(103, 101.5)
+[node name="PerfectArea" type="Area2D" parent="RhythmBar/Bar/BarHitArea"]
+
+[node name="PerfectHit" type="CollisionShape2D" parent="RhythmBar/Bar/BarHitArea/PerfectArea"]
+position = Vector2(103.5, 102.5)
 shape = SubResource("RectangleShape2D_krkiq")
+debug_color = Color(0.670588, 0.309804, 1, 0.419608)
+
+[node name="GreatArea" type="Area2D" parent="RhythmBar/Bar/BarHitArea"]
+
+[node name="GreatHit" type="CollisionShape2D" parent="RhythmBar/Bar/BarHitArea/GreatArea"]
+position = Vector2(62, 103)
+shape = SubResource("RectangleShape2D_hrqoy")
+debug_color = Color(0.843137, 0.380392, 0.0196078, 0.419608)
+
+[node name="GreatHit2" type="CollisionShape2D" parent="RhythmBar/Bar/BarHitArea/GreatArea"]
+position = Vector2(145, 102)
+shape = SubResource("RectangleShape2D_hrqoy")
+debug_color = Color(0.843137, 0.380392, 0.0196078, 0.419608)
+
+[node name="GoodArea" type="Area2D" parent="RhythmBar/Bar/BarHitArea"]
+
+[node name="GoodHit" type="CollisionShape2D" parent="RhythmBar/Bar/BarHitArea/GoodArea"]
+position = Vector2(29.8125, 103)
+shape = SubResource("RectangleShape2D_m2kwa")
+debug_color = Color(0.0666667, 0.52549, 1, 0.419608)
+
+[node name="GoodHit2" type="CollisionShape2D" parent="RhythmBar/Bar/BarHitArea/GoodArea"]
+position = Vector2(177, 102)
+shape = SubResource("RectangleShape2D_m2kwa")
+debug_color = Color(0.0666667, 0.52549, 1, 0.419608)
 
 [node name="NotesArea" type="Node2D" parent="RhythmBar/Bar"]
 position = Vector2(-405, -136)
 
 [node name="NoteSpawn" type="Node" parent="RhythmBar/Bar/NotesArea"]
 script = ExtResource("4_mfq5e")
-
-[node name="Notes" type="Node2D" parent="RhythmBar/Bar/NotesArea/NoteSpawn"]
-position = Vector2(404, 136)
-script = ExtResource("6_i0ly7")
 
 [node name="BarBorderEnd" type="CollisionShape2D" parent="RhythmBar/Bar"]
 position = Vector2(12, 75)
@@ -71,7 +99,9 @@ script = ExtResource("6_b2e7x")
 [node name="StartTimer" type="Timer" parent="Conductor"]
 one_shot = true
 
-[connection signal="interval_signal" from="RhythmBar/Bar/NotesArea/NoteSpawn" to="RhythmBar/Bar/NotesArea/NoteSpawn/Notes" method="_on_note_spawn_interval_signal"]
+[connection signal="area_entered" from="RhythmBar/Bar/BarHitArea/PerfectArea" to="." method="_on_perfect_area_area_entered"]
+[connection signal="area_entered" from="RhythmBar/Bar/BarHitArea/GreatArea" to="." method="_on_great_area_area_entered"]
+[connection signal="area_entered" from="RhythmBar/Bar/BarHitArea/GoodArea" to="." method="_on_good_area_area_entered"]
 [connection signal="beat_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_beat_signal"]
 [connection signal="measure_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_measure_signal"]
 [connection signal="timeout" from="Conductor/StartTimer" to="Conductor" method="_on_start_timer_timeout"]
