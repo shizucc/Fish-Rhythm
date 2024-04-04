@@ -21,7 +21,7 @@ extends Area2D
 	{"note" : note_rg, "keyboard" : "note_right" },
 ]
 
-const TARGET_X = 700
+const TARGET_X = 770
 const SPAWN_X = 1500
 const SPAWN_POS = Vector2(SPAWN_X, 145)
 const DISTANCE = TARGET_X - SPAWN_X
