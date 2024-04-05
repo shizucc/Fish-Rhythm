@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxnfcjk3wsouj"]
+
+[ext_resource type="Script" path="res://Lib/HitSymbol/HitSymbol.gd" id="1_ah6e5"]
+[ext_resource type="Texture2D" uid="uid://bdi40lgmw62qa" path="res://Assets/Text/note-perfect.png" id="1_i0fen"]
+
+[node name="HitSymbol" type="Node2D"]
+script = ExtResource("1_ah6e5")
+
+[node name="Texture" type="Sprite2D" parent="."]
+texture = ExtResource("1_i0fen")
