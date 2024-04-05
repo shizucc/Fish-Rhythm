@@ -31,17 +31,26 @@ var speed = 0
 
 var chosen_note = null
 
-
+enum NOTE_STATES {
+	RUN,
+	STOP_AND_DISAPEAR,
+	RUN_AND_DISAPEAR
+}
+var note_state = NOTE_STATES.RUN
 
 var score = null
 
 func _ready():
 	chosen_note = choose_random_note(notes)
-	$NoteInitArea.keyboard_note = chosen_note["keyboard"]
 	$NoteSymbol.set_texture(chosen_note["note"])
+	
 
 func _physics_process(delta):
-	position.x += speed * delta
+	match note_state:
+		NOTE_STATES.RUN :
+			position.x += speed * delta
+		NOTE_STATES.STOP_AND_DISAPEAR:
+			pass
 	
 
 func initialize():
@@ -56,18 +65,23 @@ func get_chosen_note():
 	return chosen_note
 
 func _on_good_area_area_entered(area):
-	print("good")
-	score = "good"
-	queue_free()
+	var keyboard_must_press = Global.keyboard_note_registered
+	if(InputMap.action_has_event(chosen_note["keyboard"], keyboard_must_press)):
+		print("good")
+		queue_free()
 
 
 func _on_great_area_area_entered(area):
-	print("great")
-	score = "great"
-	queue_free()
+	var keyboard_must_press = Global.keyboard_note_registered
+	if(InputMap.action_has_event(chosen_note["keyboard"], keyboard_must_press)):
+		print("great")
+		queue_free()
 
 
 func _on_perfect_area_area_entered(area):
-	print("perfect")
-	score = "perfect"
-	queue_free()
+	var keyboard_must_press = Global.keyboard_note_registered
+	if(InputMap.action_has_event(chosen_note["keyboard"], keyboard_must_press)):
+		print("perfect")
+		queue_free()
+	
+

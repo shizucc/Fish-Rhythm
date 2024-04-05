@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d2d7jaubod2iv"]
+[gd_scene load_steps=10 format=3 uid="uid://d2d7jaubod2iv"]
 
 [ext_resource type="Texture2D" uid="uid://yyq4pc2qfrs8" path="res://Assets/background.png" id="1_7iw7j"]
 [ext_resource type="Script" path="res://Lib/Level.gd" id="1_mcplw"]
@@ -8,14 +8,11 @@
 [ext_resource type="AudioStream" uid="uid://bt5k1qtb0qgwa" path="res://Assets/Music/intense_music.mp3" id="6_8reu8"]
 [ext_resource type="Script" path="res://Lib/Music/Conductor.gd" id="6_b2e7x"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0bhii"]
-size = Vector2(6, 131)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivjak"]
 size = Vector2(1.5, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7wlg5"]
-size = Vector2(11.5, 130)
+size = Vector2(17, 130)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_mcplw")
@@ -38,16 +35,6 @@ offset_right = 1100.0
 offset_bottom = 224.0
 texture = ExtResource("3_brpo2")
 
-[node name="NoteInArea" type="Area2D" parent="RhythmBar/Bar"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="NoteIn" type="CollisionShape2D" parent="RhythmBar/Bar/NoteInArea"]
-light_mask = 2
-visibility_layer = 2
-position = Vector2(433, 78.5)
-shape = SubResource("RectangleShape2D_0bhii")
-
 [node name="NoteHitArea" type="Area2D" parent="RhythmBar/Bar"]
 position = Vector2(166, -27)
 script = ExtResource("4_t3tmt")
@@ -65,7 +52,7 @@ position = Vector2(-405, -136)
 script = ExtResource("4_mfq5e")
 
 [node name="BarBorderEnd" type="CollisionShape2D" parent="RhythmBar/Bar"]
-position = Vector2(127.25, 83)
+position = Vector2(197, 82)
 shape = SubResource("RectangleShape2D_7wlg5")
 disabled = true
 
@@ -78,7 +65,6 @@ one_shot = true
 
 [node name="PlayerUI" type="Node" parent="."]
 
-[connection signal="area_entered" from="RhythmBar/Bar/NoteInArea" to="RhythmBar/Bar/NoteHitArea" method="_on_note_in_area_area_entered"]
 [connection signal="area_entered" from="RhythmBar/Bar/NoteHitArea" to="RhythmBar/Bar/NoteHitArea" method="_on_area_entered"]
 [connection signal="beat_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_beat_signal"]
 [connection signal="measure_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_measure_signal"]
