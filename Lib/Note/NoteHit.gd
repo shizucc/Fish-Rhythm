@@ -15,11 +15,14 @@ func _process(delta):
 
 func _input(event):
 	if event is InputEventKey:
-		if event.pressed:
-			print(event.keycode)
+		if event.is_action_pressed(keyboard_must_hit):
+			$NoteHit.set_disabled(false)
+			print("Sesuai")
+		elif event.is_action_released(keyboard_must_hit):
+			$NoteHit.set_disabled(true)
 
 
-func _on_area_entered(area):
+func _on_note_in_area_area_entered(area):
 	if(area.has_method("get_keyboard_note")):
-		print(area.get_keyboard_note())
-	
+		keyboard_must_hit = area.get_keyboard_note()
+		print(keyboard_must_hit)

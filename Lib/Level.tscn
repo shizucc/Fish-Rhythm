@@ -2,18 +2,20 @@
 
 [ext_resource type="Texture2D" uid="uid://yyq4pc2qfrs8" path="res://Assets/background.png" id="1_7iw7j"]
 [ext_resource type="Script" path="res://Lib/Level.gd" id="1_mcplw"]
-[ext_resource type="Texture2D" uid="uid://cfts22olu4k44" path="res://Assets/bar.png" id="2_2nw6k"]
-[ext_resource type="Texture2D" uid="uid://c6nnm7rf6fwp7" path="res://Assets/bar_perfect.png" id="3_0qtvv"]
+[ext_resource type="Texture2D" uid="uid://cbt20a5yo3ocj" path="res://Assets/Visual/Rythm bar.png" id="3_brpo2"]
 [ext_resource type="Script" path="res://Lib/Note/NoteSpawn.gd" id="4_mfq5e"]
 [ext_resource type="Script" path="res://Lib/Note/NoteHit.gd" id="4_t3tmt"]
 [ext_resource type="AudioStream" uid="uid://bt5k1qtb0qgwa" path="res://Assets/Music/intense_music.mp3" id="6_8reu8"]
 [ext_resource type="Script" path="res://Lib/Music/Conductor.gd" id="6_b2e7x"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0bhii"]
+size = Vector2(6, 131)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivjak"]
 size = Vector2(1.5, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7wlg5"]
-size = Vector2(20, 130)
+size = Vector2(11.5, 130)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_mcplw")
@@ -29,27 +31,31 @@ position = Vector2(404, 136)
 
 [node name="Bar" type="Area2D" parent="RhythmBar"]
 
-[node name="Bar" type="TextureRect" parent="RhythmBar/Bar"]
-offset_right = 1133.0
-offset_bottom = 148.0
-texture = ExtResource("2_2nw6k")
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
+[node name="TextureRect" type="TextureRect" parent="RhythmBar/Bar"]
+offset_left = 92.0
+offset_top = -57.0
+offset_right = 1100.0
+offset_bottom = 224.0
+texture = ExtResource("3_brpo2")
+
+[node name="NoteInArea" type="Area2D" parent="RhythmBar/Bar"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="NoteIn" type="CollisionShape2D" parent="RhythmBar/Bar/NoteInArea"]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(433, 78.5)
+shape = SubResource("RectangleShape2D_0bhii")
 
 [node name="NoteHitArea" type="Area2D" parent="RhythmBar/Bar"]
-position = Vector2(125, -27)
+position = Vector2(166, -27)
 script = ExtResource("4_t3tmt")
 
-[node name="TextureRect" type="TextureRect" parent="RhythmBar/Bar/NoteHitArea"]
-offset_right = 206.0
-offset_bottom = 206.0
-texture = ExtResource("3_0qtvv")
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
-
 [node name="NoteHit" type="CollisionShape2D" parent="RhythmBar/Bar/NoteHitArea"]
-position = Vector2(100.25, 102)
+position = Vector2(196, 104)
 shape = SubResource("RectangleShape2D_ivjak")
+disabled = true
 debug_color = Color(0, 0.635294, 0.403922, 0.419608)
 
 [node name="NotesArea" type="Node2D" parent="RhythmBar/Bar"]
@@ -59,7 +65,7 @@ position = Vector2(-405, -136)
 script = ExtResource("4_mfq5e")
 
 [node name="BarBorderEnd" type="CollisionShape2D" parent="RhythmBar/Bar"]
-position = Vector2(12, 75)
+position = Vector2(127.25, 83)
 shape = SubResource("RectangleShape2D_7wlg5")
 disabled = true
 
@@ -70,6 +76,9 @@ script = ExtResource("6_b2e7x")
 [node name="StartTimer" type="Timer" parent="Conductor"]
 one_shot = true
 
+[node name="PlayerUI" type="Node" parent="."]
+
+[connection signal="area_entered" from="RhythmBar/Bar/NoteInArea" to="RhythmBar/Bar/NoteHitArea" method="_on_note_in_area_area_entered"]
 [connection signal="area_entered" from="RhythmBar/Bar/NoteHitArea" to="RhythmBar/Bar/NoteHitArea" method="_on_area_entered"]
 [connection signal="beat_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_beat_signal"]
 [connection signal="measure_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_measure_signal"]

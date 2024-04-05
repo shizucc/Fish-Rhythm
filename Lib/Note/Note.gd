@@ -56,12 +56,18 @@ func get_chosen_note():
 	return chosen_note
 
 func _on_good_area_area_entered(area):
+	print("good")
 	score = "good"
+	queue_free()
 
 
 func _on_great_area_area_entered(area):
+	print("great")
 	score = "great"
+	queue_free()
 
 
 func _on_perfect_area_area_entered(area):
+	print("perfect")
 	score = "perfect"
+	queue_free()
