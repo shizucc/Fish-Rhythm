@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://57upal5l7tna"
-path="res://.godot/imported/note_a.png-cc6300a30c0a310a8cc9d51970ec6b12.ctex"
+uid="uid://dddc73partrtg"
+path="res://.godot/imported/perahu.png-44c475e41f1742fdfcffa45ef186f94a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Notes/note_a.png"
-dest_files=["res://.godot/imported/note_a.png-cc6300a30c0a310a8cc9d51970ec6b12.ctex"]
+source_file="res://Assets/Visual/perahu.png"
+dest_files=["res://.godot/imported/perahu.png-44c475e41f1742fdfcffa45ef186f94a.ctex"]
 
 [params]
 

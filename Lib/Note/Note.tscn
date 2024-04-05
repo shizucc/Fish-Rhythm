@@ -1,20 +1,57 @@
-[gd_scene load_steps=4 format=3 uid="uid://d266kht3k15h3"]
+[gd_scene load_steps=7 format=3 uid="uid://d266kht3k15h3"]
 
 [ext_resource type="Script" path="res://Lib/Note/Note.gd" id="1_2y3am"]
 [ext_resource type="Script" path="res://Lib/Note/NoteSymbol.gd" id="2_m20ro"]
+[ext_resource type="Texture2D" uid="uid://57upal5l7tna" path="res://Assets/Notes/note_a.png" id="2_u6ctc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1by1l"]
-size = Vector2(1, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4sxx7"]
+size = Vector2(20.1332, 111)
 
-[node name="Note" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58sws"]
+size = Vector2(16, 110)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_okhr5"]
+size = Vector2(34, 109)
+
+[node name="Note" type="Node2D"]
 script = ExtResource("1_2y3am")
 
 [node name="NoteSymbol" type="TextureRect" parent="."]
-offset_right = 131.0
-offset_bottom = 130.0
+offset_right = 147.0
+offset_bottom = 146.0
+texture = ExtResource("2_u6ctc")
 expand_mode = 1
 script = ExtResource("2_m20ro")
 
-[node name="HitBox" type="CollisionShape2D" parent="."]
-position = Vector2(62.5, 63.5)
-shape = SubResource("RectangleShape2D_1by1l")
+[node name="GoodArea" type="Area2D" parent="."]
+
+[node name="GoodBox" type="CollisionShape2D" parent="GoodArea"]
+position = Vector2(28, 72)
+shape = SubResource("RectangleShape2D_4sxx7")
+
+[node name="GoodBox2" type="CollisionShape2D" parent="GoodArea"]
+position = Vector2(118, 71)
+shape = SubResource("RectangleShape2D_4sxx7")
+
+[node name="GreatArea" type="Area2D" parent="."]
+
+[node name="GreatBox" type="CollisionShape2D" parent="GreatArea"]
+position = Vector2(47, 72)
+shape = SubResource("RectangleShape2D_58sws")
+debug_color = Color(0.984314, 0, 0.352941, 0.419608)
+
+[node name="GreatBox2" type="CollisionShape2D" parent="GreatArea"]
+position = Vector2(99, 72)
+shape = SubResource("RectangleShape2D_58sws")
+debug_color = Color(0.984314, 0, 0.352941, 0.419608)
+
+[node name="PerfectArea" type="Area2D" parent="."]
+
+[node name="PerfectBox" type="CollisionShape2D" parent="PerfectArea"]
+position = Vector2(73, 72.5)
+shape = SubResource("RectangleShape2D_okhr5")
+debug_color = Color(0.670588, 0.509804, 0, 0.419608)
+
+[connection signal="area_entered" from="GoodArea" to="." method="_on_good_area_area_entered"]
+[connection signal="area_entered" from="GreatArea" to="." method="_on_great_area_area_entered"]
+[connection signal="area_entered" from="PerfectArea" to="." method="_on_perfect_area_area_entered"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://57upal5l7tna"
-path="res://.godot/imported/note_a.png-cc6300a30c0a310a8cc9d51970ec6b12.ctex"
+uid="uid://cbt20a5yo3ocj"
+path="res://.godot/imported/Rythm bar.png-d8311244fc9e022af9c57cb00e96bc5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Notes/note_a.png"
-dest_files=["res://.godot/imported/note_a.png-cc6300a30c0a310a8cc9d51970ec6b12.ctex"]
+source_file="res://Assets/Visual/Rythm bar.png"
+dest_files=["res://.godot/imported/Rythm bar.png-d8311244fc9e022af9c57cb00e96bc5e.ctex"]
 
 [params]
 
