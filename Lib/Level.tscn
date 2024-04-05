@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2d7jaubod2iv"]
+[gd_scene load_steps=11 format=3 uid="uid://d2d7jaubod2iv"]
 
-[ext_resource type="Texture2D" uid="uid://yyq4pc2qfrs8" path="res://Assets/background.png" id="1_7iw7j"]
 [ext_resource type="Script" path="res://Lib/Level.gd" id="1_mcplw"]
+[ext_resource type="Texture2D" uid="uid://blm1ebu3kwrxp" path="res://Assets/Visual/Background.png" id="2_l4biy"]
 [ext_resource type="Texture2D" uid="uid://cbt20a5yo3ocj" path="res://Assets/Visual/Rythm bar.png" id="3_brpo2"]
 [ext_resource type="Script" path="res://Lib/Note/NoteSpawn.gd" id="4_mfq5e"]
 [ext_resource type="Script" path="res://Lib/Note/NoteHit.gd" id="4_t3tmt"]
 [ext_resource type="AudioStream" uid="uid://bt5k1qtb0qgwa" path="res://Assets/Music/intense_music.mp3" id="6_8reu8"]
 [ext_resource type="Script" path="res://Lib/Music/Conductor.gd" id="6_b2e7x"]
+[ext_resource type="Texture2D" uid="uid://dddc73partrtg" path="res://Assets/Visual/perahu.png" id="8_uryr4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivjak"]
 size = Vector2(1.5, 20)
@@ -17,10 +18,10 @@ size = Vector2(17, 130)
 [node name="Level" type="Node2D"]
 script = ExtResource("1_mcplw")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="BG" type="TextureRect" parent="."]
 offset_right = 1920.0
 offset_bottom = 1080.0
-texture = ExtResource("1_7iw7j")
+texture = ExtResource("2_l4biy")
 stretch_mode = 2
 
 [node name="RhythmBar" type="Node2D" parent="."]
@@ -64,6 +65,11 @@ script = ExtResource("6_b2e7x")
 one_shot = true
 
 [node name="PlayerUI" type="Node" parent="."]
+
+[node name="Perahu" type="TextureRect" parent="PlayerUI"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("8_uryr4")
 
 [connection signal="area_entered" from="RhythmBar/Bar/NoteHitArea" to="RhythmBar/Bar/NoteHitArea" method="_on_area_entered"]
 [connection signal="beat_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_beat_signal"]

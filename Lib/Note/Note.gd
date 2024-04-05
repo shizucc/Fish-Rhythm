@@ -23,10 +23,10 @@ extends Node2D
 
 @onready var hit_symbol = preload("res://Lib/HitSymbol/HitSymbol.tscn")
 
-const TARGET_X = 880
-const SPAWN_X = 1600
-const SPAWN_POS = Vector2(SPAWN_X, 145)
-const DISTANCE = TARGET_X - SPAWN_X
+@onready var TARGET_X = Global.song_selection[Global.cur_song]["target_x"]
+@onready var SPAWN_X = 1600
+@onready var SPAWN_POS = Vector2(SPAWN_X, 145)
+@onready var DISTANCE = TARGET_X - SPAWN_X
 
 var speed = 0
 
@@ -42,6 +42,8 @@ var note_state = NOTE_STATES.RUN
 var score = null
 
 func _ready():
+	position = SPAWN_POS
+	speed = DISTANCE / 2.0
 	chosen_note = choose_random_note(notes)
 	$NoteSymbol.set_texture(chosen_note["note"])
 	
@@ -55,12 +57,9 @@ func _physics_process(delta):
 	
 func _process(delta):
 	if position.x <= 600:
+		Global.score -= 4
 		spawn_hit_symbol(0)
 		queue_free()
-
-func initialize():
-	position = SPAWN_POS
-	speed = DISTANCE / 2.0
 
 func choose_random_note(array_to_choose_from):
 	var random_index = randi() % array_to_choose_from.size()
@@ -72,6 +71,7 @@ func get_chosen_note():
 func _on_good_area_area_entered(area):
 	var keyboard_must_press = Global.keyboard_note_registered
 	if(InputMap.action_has_event(chosen_note["keyboard"], keyboard_must_press)):
+		Global.score += 1
 		spawn_hit_symbol(1)
 		queue_free()
 
@@ -79,6 +79,7 @@ func _on_good_area_area_entered(area):
 func _on_great_area_area_entered(area):
 	var keyboard_must_press = Global.keyboard_note_registered
 	if(InputMap.action_has_event(chosen_note["keyboard"], keyboard_must_press)):
+		Global.score += 2
 		spawn_hit_symbol(2)
 		queue_free()
 
@@ -86,6 +87,7 @@ func _on_great_area_area_entered(area):
 func _on_perfect_area_area_entered(area):
 	var keyboard_must_press = Global.keyboard_note_registered
 	if(InputMap.action_has_event(chosen_note["keyboard"], keyboard_must_press)):
+		Global.score += 3
 		spawn_hit_symbol(3)
 		queue_free()
 	

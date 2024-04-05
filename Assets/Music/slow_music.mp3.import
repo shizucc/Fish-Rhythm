@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/slow_music.mp3-9cc3f7c9aa8b9ec0126f0021856349
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

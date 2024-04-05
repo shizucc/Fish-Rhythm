@@ -10,7 +10,6 @@ var interval = 0
 var speed = 0
 
 var instance
-var note = load("res://Lib/Note/Note.tscn")
 var spawn_in_measure = [false, false, false, false] # to keep track of which measure to spawn note in
 
 signal interval_signal(interval)
@@ -25,7 +24,6 @@ func _process(delta):
 
 func spawn_note():
 	var note = note_scene.instantiate()
-	note.initialize()
 	add_child(note)
 
 func _on_conductor_measure_signal(position):
@@ -34,8 +32,25 @@ func _on_conductor_measure_signal(position):
 
 func _on_conductor_beat_signal(position):
 	song_position_in_beats = position
-	if song_position_in_beats > 0:
-		spawn_in_measure = [true, false, false, false]
-
-func _spawn_notes(count, interval):
-	spawn_note()
+	if Global.cur_song == 0: # calm song mapping
+		if song_position_in_beats > 3:
+			spawn_in_measure = [false, true, false, false]
+	elif Global.cur_song == 1: # intense song mapping
+		if song_position_in_beats >= 192:
+			spawn_in_measure = [true, false, false, false]
+		elif song_position_in_beats >= 128:
+			spawn_in_measure = [true, false, true, false]
+		elif song_position_in_beats >= 118:
+			spawn_in_measure = [true, false, false, false]
+		elif song_position_in_beats >= 112:
+			spawn_in_measure = [true, false, true, false]
+		elif song_position_in_beats >= 102:
+			spawn_in_measure = [true, true, false, true]
+		elif song_position_in_beats >= 58:
+			spawn_in_measure = [true, false, false, false]
+		elif song_position_in_beats >= 52:
+			spawn_in_measure = [true, false, true, false]
+		elif song_position_in_beats >= 42:
+			spawn_in_measure = [true, true, false, true]
+		elif song_position_in_beats > 0:
+			spawn_in_measure = [true, false, false, false]

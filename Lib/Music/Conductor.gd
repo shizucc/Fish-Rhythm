@@ -13,6 +13,8 @@ var measure = 1
 var closest = 0
 var time_off_beat = 0.0
 
+var intense_mode = false
+
 signal beat_signal(position)
 signal measure_signal(position)
 
@@ -21,6 +23,12 @@ func _ready():
 	
 	
 func _physics_process(delta):
+	if Global.score >= 20 and not intense_mode:
+		stop()
+		print("Change to intense music")
+		Global.cur_song = 1
+		play_with_beat_offset(5)
+		intense_mode = true
 	if playing:
 		song_position = get_playback_position() + AudioServer.get_time_since_last_mix()
 		song_position -= AudioServer.get_output_latency()
@@ -28,6 +36,9 @@ func _physics_process(delta):
 		_report_beat()
 	
 func _report_beat():
+	if last_reported_beat - song_position_in_beats >= 100: # when music has looped
+		last_reported_beat = 0
+		measure = 4
 	if last_reported_beat < song_position_in_beats:
 		if measure > measures:
 			measure = 1
@@ -35,9 +46,19 @@ func _report_beat():
 		emit_signal("measure_signal", measure)
 		last_reported_beat = song_position_in_beats
 		measure += 1
-		
 
 func play_with_beat_offset(num):
+	# Set song selection
+	var selected_song = Global.song_selection[Global.cur_song]
+	set_stream(selected_song["res"])
+	
+	# Set timing
+	bpm = selected_song["bpm"]
+	song_position = 0.0
+	song_position_in_beats = 0
+	sec_per_beat = 60.0 / bpm
+	last_reported_beat = 0
+	measure = 1
 	beats_before_start = num
 	$StartTimer.wait_time = sec_per_beat
 	$StartTimer.start()
