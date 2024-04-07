@@ -1,5 +1,18 @@
-[gd_scene format=3 uid="uid://d1pracsqm4ake"]
+[gd_scene load_steps=3 format=3 uid="uid://d1pracsqm4ake"]
 
-[node name="FIshingRod" type="Node2D"]
+[sub_resource type="Animation" id="Animation_nngki"]
+resource_name = "Swing"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_anqlv"]
+_data = {
+"Swing": SubResource("Animation_nngki")
+}
+
+[node name="FishingRod" type="Node2D"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_anqlv")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

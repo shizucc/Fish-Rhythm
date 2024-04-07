@@ -52,6 +52,7 @@ position = Vector2(-405, -136)
 script = ExtResource("4_mfq5e")
 
 [node name="BarBorderEnd" type="CollisionShape2D" parent="RhythmBar/Bar"]
+visible = false
 position = Vector2(197, 82)
 shape = SubResource("RectangleShape2D_7wlg5")
 disabled = true
