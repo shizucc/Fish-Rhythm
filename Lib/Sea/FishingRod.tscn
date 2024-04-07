@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsl2ky17nswau"]
+
+[ext_resource type="Texture2D" uid="uid://ci5gcw567fewa" path="res://Assets/Visual/Fishing-Rod/pancing lurus.png" id="1_4fvkd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uu2bo"]
+radius = 7.0
+
+[node name="FishingRod" type="Node2D"]
+
+[node name="FishingRod" type="TextureRect" parent="."]
+z_index = 2
+offset_left = 671.0
+offset_top = 494.0
+offset_right = 1000.0
+offset_bottom = 1080.0
+texture = ExtResource("1_4fvkd")
+
+[node name="BaitArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaitArea"]
+position = Vector2(987, 570)
+shape = SubResource("CircleShape2D_uu2bo")
+debug_color = Color(0.980392, 0, 0.364706, 0.419608)

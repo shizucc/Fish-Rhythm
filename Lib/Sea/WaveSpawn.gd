@@ -4,11 +4,16 @@ var random = RandomNumberGenerator.new()
 
 const wave_scene = preload("res://Lib/Sea/Wave.tscn")
 
-var wave_positions_y = [500,550,600,650,700,750,800,850,900]
+
 var wave_position_x = 2000
 
+
 func _ready():
-	pass
+	for i in range(0,8):
+		var wave = wave_scene.instantiate()
+		add_child(wave)
+		wave.global_position = Vector2(random.randf_range(100,1920), random.randf_range(400,800))
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
