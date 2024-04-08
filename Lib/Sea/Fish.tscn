@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bp6nr4opqobuf"]
+
+[ext_resource type="Script" path="res://Lib/Sea/Fish.gd" id="1_fdhg3"]
+[ext_resource type="Texture2D" uid="uid://djacstq3cbafa" path="res://Assets/Visual/Fish/iwak.png" id="2_jkwoj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n6gts"]
+radius = 261.048
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7di4c"]
+
+[node name="Fish" type="CharacterBody2D"]
+script = ExtResource("1_fdhg3")
+
+[node name="FishImg" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.294118)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_jkwoj")
+
+[node name="FishBaitDetection" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishBaitDetection"]
+y_sort_enabled = true
+position = Vector2(78, 43)
+shape = SubResource("CircleShape2D_n6gts")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(30, 46)
+shape = SubResource("CircleShape2D_7di4c")
+disabled = true
+debug_color = Color(0.862745, 0.360784, 0, 0.419608)
+
+[connection signal="area_entered" from="FishBaitDetection" to="." method="_on_fish_bait_detection_area_entered"]
+[connection signal="body_entered" from="FishBaitDetection" to="." method="_on_fish_bait_detection_body_entered"]
