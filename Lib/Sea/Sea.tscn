@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2uu2yyq0165q"]
+[gd_scene load_steps=8 format=3 uid="uid://d2uu2yyq0165q"]
 
 [ext_resource type="Texture2D" uid="uid://cc6ftd82wd618" path="res://Assets/Visual/Sea/background.png" id="1_kww61"]
 [ext_resource type="Texture2D" uid="uid://dddc73partrtg" path="res://Assets/Visual/perahu.png" id="2_k4oxw"]
 [ext_resource type="Script" path="res://Lib/Sea/WaveSpawn.gd" id="2_utrli"]
 [ext_resource type="Script" path="res://Lib/Sea/Fishes.gd" id="3_u5eoa"]
 [ext_resource type="Texture2D" uid="uid://ci5gcw567fewa" path="res://Assets/Visual/Fishing-Rod/pancing lurus.png" id="4_b4uo2"]
-[ext_resource type="PackedScene" uid="uid://bp6nr4opqobuf" path="res://Lib/Sea/Fish.tscn" id="4_jeq24"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dbacy"]
 size = Vector2(25, 619)
@@ -49,11 +48,9 @@ texture = ExtResource("2_k4oxw")
 position = Vector2(751, 537)
 script = ExtResource("3_u5eoa")
 
-[node name="Fish1" parent="Fishing/Fishes" instance=ExtResource("4_jeq24")]
-light_mask = 2
-visibility_layer = 2
-z_as_relative = false
-y_sort_enabled = true
+[node name="FishTimeout" type="Timer" parent="Fishing/Fishes"]
+wait_time = 6.0
+autostart = true
 
 [node name="FishingRod" type="Node2D" parent="Fishing"]
 y_sort_enabled = true
@@ -77,3 +74,4 @@ shape = SubResource("CircleShape2D_uu2bo")
 debug_color = Color(0.980392, 0, 0.364706, 0.419608)
 
 [connection signal="timeout" from="Water/WaveArea/WaveTimer" to="Water/WaveArea/WaveSpawn" method="_on_wave_timer_timeout"]
+[connection signal="timeout" from="Fishing/Fishes/FishTimeout" to="Fishing/Fishes" method="_on_fish_timeout_timeout"]

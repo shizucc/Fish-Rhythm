@@ -20,6 +20,7 @@ texture = ExtResource("2_jkwoj")
 [node name="FishBaitDetection" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 2
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FishBaitDetection"]
 y_sort_enabled = true
@@ -29,6 +30,7 @@ shape = SubResource("CircleShape2D_n6gts")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(30, 46)
 shape = SubResource("CircleShape2D_7di4c")
+disabled = true
 debug_color = Color(0.862745, 0.360784, 0, 0.419608)
 
 [connection signal="area_entered" from="FishBaitDetection" to="." method="_on_fish_bait_detection_area_entered"]
