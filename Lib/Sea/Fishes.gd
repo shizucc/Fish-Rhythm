@@ -7,12 +7,15 @@ var tricked_fish_index = -1
 var fish_scene = preload("res://Lib/Sea/Fish.tscn")
 
 # MENGATUR IKAN RANDOM AGAR TERPERANGKAP PANCING
-func set_tricked_fish():
-	tricked_fish_index = choose_random_index_from_array(fishes)
-	if(tricked_fish_index >= 0):
-		tricked_fish = fishes[tricked_fish_index]
-		tricked_fish.set_tricked(true)
-
+func set_tricked_fish(value):
+	if(value==true):
+		tricked_fish_index = choose_random_index_from_array(fishes)
+		if(tricked_fish_index >= 0):
+			tricked_fish = fishes[tricked_fish_index]
+			tricked_fish.set_tricked(true)
+	elif(value==false):
+		tricked_fish.set_tricked(false)
+		tricked_fish = null
 # MENGATUR IKAN AGAR MENGHILANG KETIKA STRIKE
 func set_strike_fish():
 	if(tricked_fish_index >= 0):
@@ -24,9 +27,7 @@ func set_strike_fish():
 
 func _ready():
 	init_fish(fish_amount)
-	set_tricked_fish()
 	
-
 func _process(delta):
 	if Global.game_phase == 2:
 		set_strike_fish()

@@ -47,6 +47,7 @@ func _process(delta):
 		Global.score = 50
 		strike_bar.value = Global.score
 		strike_bar.modulate.a = 1
+		
 		await get_tree().create_timer(1.0).timeout
 		reel_text.modulate.a = 0
 	elif Global.game_phase == 3:
