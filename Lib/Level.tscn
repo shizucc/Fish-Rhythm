@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://d2d7jaubod2iv"]
 
 [ext_resource type="Script" path="res://Lib/Level.gd" id="1_mcplw"]
-[ext_resource type="Texture2D" uid="uid://blm1ebu3kwrxp" path="res://Assets/Visual/Background.png" id="2_l4biy"]
+[ext_resource type="Texture2D" path="res://Assets/Visual/Background.png" id="2_l4biy"]
 [ext_resource type="Texture2D" uid="uid://cbt20a5yo3ocj" path="res://Assets/Visual/Rythm bar.png" id="3_brpo2"]
 [ext_resource type="Script" path="res://Lib/Note/NoteSpawn.gd" id="4_mfq5e"]
 [ext_resource type="Script" path="res://Lib/Note/NoteHit.gd" id="4_t3tmt"]

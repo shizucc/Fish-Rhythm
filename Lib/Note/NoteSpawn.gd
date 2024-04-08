@@ -32,24 +32,29 @@ func _on_conductor_measure_signal(position):
 
 func _on_conductor_beat_signal(position):
 	song_position_in_beats = position
+	print(position)
 	if Global.cur_song == 0: # calm song mapping
 		if song_position_in_beats > 3:
 			spawn_in_measure = [false, true, false, false]
 	elif Global.cur_song == 1: # intense song mapping
-		if song_position_in_beats >= 192:
+		if song_position_in_beats >= 216:
+			spawn_in_measure = [true, true, true, false]
+		elif song_position_in_beats >= 192:
 			spawn_in_measure = [true, false, false, false]
+		elif song_position_in_beats >= 160:
+			spawn_in_measure = [true, true, true, false]
 		elif song_position_in_beats >= 128:
 			spawn_in_measure = [true, false, true, false]
-		elif song_position_in_beats >= 118:
+		elif song_position_in_beats >= 122:
 			spawn_in_measure = [true, false, false, false]
-		elif song_position_in_beats >= 112:
+		elif song_position_in_beats >= 116:
 			spawn_in_measure = [true, false, true, false]
-		elif song_position_in_beats >= 102:
+		elif song_position_in_beats >= 106:
 			spawn_in_measure = [true, true, false, true]
 		elif song_position_in_beats >= 58:
 			spawn_in_measure = [true, false, false, false]
 		elif song_position_in_beats >= 52:
-			spawn_in_measure = [true, false, true, false]
+			spawn_in_measure = [true, false, true, false] 
 		elif song_position_in_beats >= 42:
 			spawn_in_measure = [true, true, false, true]
 		elif song_position_in_beats > 0:
