@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d2d7jaubod2iv"]
+[gd_scene load_steps=14 format=3 uid="uid://d2d7jaubod2iv"]
 
 [ext_resource type="Script" path="res://Lib/Level.gd" id="1_mcplw"]
 [ext_resource type="Texture2D" uid="uid://blm1ebu3kwrxp" path="res://Assets/Visual/Background.png" id="2_l4biy"]
@@ -7,8 +7,10 @@
 [ext_resource type="Script" path="res://Lib/Note/NoteHit.gd" id="4_t3tmt"]
 [ext_resource type="AudioStream" uid="uid://bt5k1qtb0qgwa" path="res://Assets/Music/intense_music.mp3" id="6_8reu8"]
 [ext_resource type="Script" path="res://Lib/Music/Conductor.gd" id="6_b2e7x"]
-[ext_resource type="Texture2D" uid="uid://dddc73partrtg" path="res://Assets/Visual/perahu.png" id="8_uryr4"]
+[ext_resource type="Texture2D" uid="uid://jc5dpek5kva2" path="res://Assets/Visual/healthbar-outer.png" id="8_3rlk6"]
 [ext_resource type="PackedScene" uid="uid://d2uu2yyq0165q" path="res://Lib/Sea/Sea.tscn" id="9_hckqa"]
+[ext_resource type="Texture2D" uid="uid://75r013vh0jun" path="res://Assets/Visual/healthbar-inner.png" id="9_x2lll"]
+[ext_resource type="Texture2D" uid="uid://djacstq3cbafa" path="res://Assets/Visual/Fish/iwak.png" id="11_ghj53"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivjak"]
 size = Vector2(1.5, 20)
@@ -66,16 +68,66 @@ script = ExtResource("6_b2e7x")
 [node name="StartTimer" type="Timer" parent="Conductor"]
 one_shot = true
 
+[node name="Sea" parent="." instance=ExtResource("9_hckqa")]
+
 [node name="PlayerUI" type="Node" parent="."]
 
-[node name="Perahu" type="TextureRect" parent="PlayerUI"]
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("8_uryr4")
+[node name="Text" type="TextureRect" parent="PlayerUI"]
+z_index = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="Sea" parent="." instance=ExtResource("9_hckqa")]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="PlayerUI"]
+z_index = 2
+offset_left = 111.0
+offset_top = 283.0
+offset_right = 229.0
+offset_bottom = 858.0
+max_value = 200.0
+value = 50.0
+fill_mode = 3
+texture_over = ExtResource("8_3rlk6")
+texture_progress = ExtResource("9_x2lll")
+
+[node name="Label" type="Label" parent="PlayerUI"]
+z_index = 2
+offset_left = 168.0
+offset_top = -1.0
+offset_right = 305.0
+offset_bottom = 95.0
+theme_override_font_sizes/font_size = 70
+text = "0"
+
+[node name="FishIcon" type="TextureRect" parent="PlayerUI"]
+z_index = 2
+offset_top = 3.0
+offset_right = 163.0
+offset_bottom = 95.0
+texture = ExtResource("11_ghj53")
+
+[node name="ResetButton" type="Button" parent="PlayerUI"]
+z_index = 4
+offset_left = 1684.0
+offset_top = 19.0
+offset_right = 1893.0
+offset_bottom = 123.0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 70
+text = "RESET"
 
 [connection signal="area_entered" from="RhythmBar/Bar/NoteHitArea" to="RhythmBar/Bar/NoteHitArea" method="_on_area_entered"]
 [connection signal="beat_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_beat_signal"]
 [connection signal="measure_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_measure_signal"]
 [connection signal="timeout" from="Conductor/StartTimer" to="Conductor" method="_on_start_timer_timeout"]
+[connection signal="pressed" from="PlayerUI/ResetButton" to="." method="_on_reset_button_pressed"]

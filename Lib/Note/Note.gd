@@ -56,8 +56,10 @@ func _physics_process(delta):
 			pass
 	
 func _process(delta):
+	if Global.game_phase == 4 or Global.game_phase == 5 or Global.game_phase == 99:
+		queue_free()
 	if position.x <= 600:
-		Global.score -= 4
+		Global.score -= 10
 		spawn_hit_symbol(0)
 		queue_free()
 

@@ -104,7 +104,7 @@ func state_chase(delta, target):
 
 func state_disappear(delta):
 	state_normal(delta)
-	print($FishImg.modulate.a)
+	#print($FishImg.modulate.a)
 	if($FishImg.modulate.a >= 0):
 		$FishImg.modulate.a -= 0.003
 	else:

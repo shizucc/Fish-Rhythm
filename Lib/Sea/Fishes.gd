@@ -26,6 +26,13 @@ func _ready():
 	init_fish(fish_amount)
 	set_tricked_fish()
 	
+
+func _process(delta):
+	if Global.game_phase == 2:
+		set_strike_fish()
+		Global.game_phase = 3
+
+	
 func init_fish(amount):
 	for i in range(0,amount):
 		var fish = fish_scene.instantiate()

@@ -27,7 +27,7 @@ func spawn_note():
 	add_child(note)
 
 func _on_conductor_measure_signal(position):
-	if spawn_in_measure[position-1]:
+	if spawn_in_measure[position-1] and (Global.game_phase == 1 or Global.game_phase == 2 or Global.game_phase == 3):
 		spawn_note()
 
 func _on_conductor_beat_signal(position):

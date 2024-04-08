@@ -13,8 +13,6 @@ var measure = 1
 var closest = 0
 var time_off_beat = 0.0
 
-var intense_mode = false
-
 signal beat_signal(position)
 signal measure_signal(position)
 
@@ -23,12 +21,14 @@ func _ready():
 	
 	
 func _physics_process(delta):
-	if Global.score >= 20 and not intense_mode:
+	if Global.score >= Global.strike_score and Global.game_phase == 1:
 		stop()
 		print("Change to intense music")
 		Global.cur_song = 1
 		play_with_beat_offset(5)
-		intense_mode = true
+		Global.game_phase = 2
+	if (Global.game_phase == 4 or Global.game_phase == 5 or Global.game_phase == 99) and playing:
+		stop()
 	if playing:
 		song_position = get_playback_position() + AudioServer.get_time_since_last_mix()
 		song_position -= AudioServer.get_output_latency()
