@@ -19,10 +19,3 @@ func _process(delta):
 		modulate.a = 1
 	elif Global.game_phase == 2:
 		$FishingRodTexture.set_texture(pancing_tarik)
-	elif Global.game_phase == 3:
-		if Input.is_action_just_pressed("note_left") or Input.is_action_just_pressed("note_a"):
-			$FishingRodTexture.set_texture(pancing_tarik_kiri)
-		elif Input.is_action_just_pressed("note_right") or Input.is_action_just_pressed("note_right"):
-			$FishingRodTexture.set_texture(pancing_tarik_kanan)
-		elif Input.is_action_just_pressed("note_down") or Input.is_action_just_pressed("note_s") or Input.is_action_just_pressed("note_up") or Input.is_action_just_pressed("note_w"):
-			$FishingRodTexture.set_texture(pancing_tarik)

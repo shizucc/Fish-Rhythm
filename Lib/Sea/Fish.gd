@@ -43,6 +43,7 @@ func _process(delta):
 	if(TRICKED):
 		$FishBaitDetection/CollisionShape2D.set_disabled(false)
 		$FishBaitDetection.set_monitoring(true)
+		speed = 100
 	else:
 		$FishBaitDetection/CollisionShape2D.set_disabled(true)
 		$FishBaitDetection.set_monitoring(false)

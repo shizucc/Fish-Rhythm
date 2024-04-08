@@ -10,5 +10,8 @@ func _ready():
 func _process(delta):
 	pass
 
+func set_strike_fish():
+	$Fishing/Fishes.set_strike_fish()
+
 func set_tricked_fish(value):
 	$Fishing/Fishes.set_tricked_fish(value)

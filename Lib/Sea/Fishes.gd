@@ -4,10 +4,13 @@ extends Node2D
 var fishes = []
 var tricked_fish = null
 var tricked_fish_index = -1
+var trick_state = false
 var fish_scene = preload("res://Lib/Sea/Fish.tscn")
 
 # MENGATUR IKAN RANDOM AGAR TERPERANGKAP PANCING
 func set_tricked_fish(value):
+	if value == trick_state:
+		return
 	if(value==true):
 		tricked_fish_index = choose_random_index_from_array(fishes)
 		if(tricked_fish_index >= 0):
@@ -16,6 +19,7 @@ func set_tricked_fish(value):
 	elif(value==false):
 		tricked_fish.set_tricked(false)
 		tricked_fish = null
+	trick_state = value
 # MENGATUR IKAN AGAR MENGHILANG KETIKA STRIKE
 func set_strike_fish():
 	if(tricked_fish_index >= 0):
@@ -24,15 +28,12 @@ func set_strike_fish():
 		fishes.remove_at(tricked_fish_index)
 		tricked_fish.queue_free()
 		tricked_fish = null
+		tricked_fish_index = -1
+		trick_state = false
 
 func _ready():
 	init_fish(fish_amount)
 	
-func _process(delta):
-	if Global.game_phase == 2:
-		set_strike_fish()
-		Global.game_phase = 3
-
 	
 func init_fish(amount):
 	for i in range(0,amount):
@@ -51,6 +52,8 @@ func _on_fish_timeout_timeout():
 		if(!deleted_fish.TRICKED):
 			deleted_fish.change_state_to_disappear()
 			fishes.remove_at(deleted_fish_index)
+			if deleted_fish_index < tricked_fish_index:
+				tricked_fish_index -= 1
 	
 	await get_tree().create_timer(5).timeout
 	if(fishes.size() < 10):

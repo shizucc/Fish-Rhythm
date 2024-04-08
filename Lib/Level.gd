@@ -42,14 +42,15 @@ func _process(delta):
 	elif Global.game_phase == 1 and $Conductor.playing:
 		reset_btn.disabled = false
 	elif Global.game_phase == 2:
+		$Sea.set_tricked_fish(true)
 		reel_text.set_texture(text_strike)
 		reel_text.modulate.a = 1
 		Global.score = 50
 		strike_bar.value = Global.score
 		strike_bar.modulate.a = 1
-		
 		await get_tree().create_timer(1.0).timeout
 		reel_text.modulate.a = 0
+		Global.game_phase = 3
 	elif Global.game_phase == 3:
 		strike_bar.value = Global.score
 		if Global.score >= 200:
@@ -57,12 +58,14 @@ func _process(delta):
 		elif Global.score <= 0:
 			Global.game_phase = 5
 	elif Global.game_phase == 4:
+		$Sea.set_strike_fish()
 		reel_text.set_texture(text_success)
 		reel_text.modulate.a = 1
 		Global.fish_count += 1
 		fish_count_label.text = str(Global.fish_count)
 		Global.game_phase = 99
 	elif Global.game_phase == 5:
+		$Sea.set_tricked_fish(false)
 		reel_text.set_texture(text_fail)
 		reel_text.modulate.a = 1
 		Global.game_phase = 99
@@ -73,5 +76,6 @@ func _process(delta):
 		Global.game_phase = 0
 
 func _on_reset_button_pressed():
+	$Sea.set_tricked_fish(false)
 	Global.fish_count = 0
 	Global.game_phase = 99

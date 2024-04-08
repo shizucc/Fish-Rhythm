@@ -32,7 +32,6 @@ func _on_conductor_measure_signal(position):
 
 func _on_conductor_beat_signal(position):
 	song_position_in_beats = position
-	print(position)
 	if Global.cur_song == 0: # calm song mapping
 		if song_position_in_beats > 3:
 			spawn_in_measure = [false, true, false, false]
