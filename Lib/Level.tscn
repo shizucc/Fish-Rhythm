@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://d2d7jaubod2iv"]
+[gd_scene load_steps=12 format=3 uid="uid://d2d7jaubod2iv"]
 
 [ext_resource type="Script" path="res://Lib/Level.gd" id="1_mcplw"]
-[ext_resource type="Texture2D" path="res://Assets/Visual/Background.png" id="2_l4biy"]
+[ext_resource type="Texture2D" uid="uid://blm1ebu3kwrxp" path="res://Assets/Visual/Background.png" id="2_l4biy"]
 [ext_resource type="Texture2D" uid="uid://cbt20a5yo3ocj" path="res://Assets/Visual/Rythm bar.png" id="3_brpo2"]
 [ext_resource type="Script" path="res://Lib/Note/NoteSpawn.gd" id="4_mfq5e"]
 [ext_resource type="Script" path="res://Lib/Note/NoteHit.gd" id="4_t3tmt"]
 [ext_resource type="AudioStream" uid="uid://bt5k1qtb0qgwa" path="res://Assets/Music/intense_music.mp3" id="6_8reu8"]
 [ext_resource type="Script" path="res://Lib/Music/Conductor.gd" id="6_b2e7x"]
 [ext_resource type="Texture2D" uid="uid://dddc73partrtg" path="res://Assets/Visual/perahu.png" id="8_uryr4"]
+[ext_resource type="PackedScene" uid="uid://d2uu2yyq0165q" path="res://Lib/Sea/Sea.tscn" id="9_hckqa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivjak"]
 size = Vector2(1.5, 20)
@@ -71,6 +72,8 @@ one_shot = true
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("8_uryr4")
+
+[node name="Sea" parent="." instance=ExtResource("9_hckqa")]
 
 [connection signal="area_entered" from="RhythmBar/Bar/NoteHitArea" to="RhythmBar/Bar/NoteHitArea" method="_on_area_entered"]
 [connection signal="beat_signal" from="Conductor" to="RhythmBar/Bar/NotesArea/NoteSpawn" method="_on_conductor_beat_signal"]

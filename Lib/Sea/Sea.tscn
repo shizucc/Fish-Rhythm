@@ -17,6 +17,7 @@ radius = 7.0
 [node name="Water" type="Area2D" parent="."]
 
 [node name="Water" type="TextureRect" parent="Water"]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_kww61")
